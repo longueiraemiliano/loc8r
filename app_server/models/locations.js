@@ -27,7 +27,7 @@ var locationSchema = new mongoose.Schema({
 
 mongoose.model('Location', locationSchema);
 
-/*
+/* 
 db.locations.save({
     name: 'Starfish',
     address: '125 High Street, Reading, RG6 1PS',
