@@ -17,7 +17,11 @@ if (process.platform === "win32"){
     });
 }
 
-mongoose.connect(dbURI);
+var options = {
+    useMongoClient: true
+}
+
+mongoose.connect(dbURI, options);
  
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connected to ' + dbURI);
