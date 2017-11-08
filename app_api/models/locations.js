@@ -17,10 +17,9 @@ var reviewSchema = new mongoose.Schema({
 var locationSchema = new mongoose.Schema({
     name: {type: String, required: true},
     address: String,
-    rating: Number,
     facilities: [String],
     rating: {type: Number, "default": 0, min: 0, max: 5},
-    coords: {type: [Number], index: '2dsphere'},
+    coords: {type: [Number], index: '2dsphere', requeride: true},
     openingTimes: [openingTimeSchema],
     reviews: [reviewSchema]
  });
