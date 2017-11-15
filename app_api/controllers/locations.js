@@ -1,6 +1,19 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('Location');
 
+var meterConversion = (function() {
+  var mToKm = function(distance) {
+      return parseFloat(distance / 1000);
+  };
+  var kmToM = function(distance) {
+      return parseFloat(distance * 1000);
+  };
+  return {
+      mToKm : mToKm,
+      kmToM : kmToM
+  };
+})();
+
 var theEarth = (function(){
     var earthRadius = 6371; // km, miles is 3959
     var getDistanceFromRads = function(rads) {
@@ -60,41 +73,41 @@ var buildLocationList = function(req, res, results, stats) {
 };
 
 module.exports.locationsListByDistance = function(req, res) {
-    var lng = parseFloat(req.query.lng);
-    var lat = parseFloat(req.query.lat);
+  var lng = parseFloat(req.query.lng);
+  var lat = parseFloat(req.query.lat);
+  var maxDistance = parseFloat(req.query.maxDistance);
 
-    var point = {
-        type: "Point",
-        coordinates: [lng, lat]
-    };
+  var point = {
+    type: "Point",
+    coordinates: [lng, lat]
+  };
 
-    var geoOptions = {
-        spherical: true,
-        maxDistance: theEarth.getRadsFromDistance(20),
-        num: 10
-    };
+  var geoOptions = {
+    spherical: true,
+    maxDistance: meterConversion.kmToM(maxDistance),
+    num: 10
+  };
 
-    if (!lng || !lat || !maxDistance) {
-        console.log('locationsListByDistance missing params');
-        sendJSONresponse(res, 404, {
-          "message": "lng, lat and maxDistance query parameters are all required"
-        });
-
-        return;
-    }
-
-    Loc.geoNear(point, geoOptions, function(err, results, stats) {
-        var locations;
-        console.log('Geo Results', results);
-        console.log('Geo stats', stats);
-        if (err) {
-          console.log('geoNear error:', err);
-          sendJSONresponse(res, 404, err);
-        } else {
-          locations = buildLocationList(req, res, results, stats);
-          sendJSONresponse(res, 200, locations);
-        }
+  if (!lng || !lat || !maxDistance) {
+    console.log('locationsListByDistance missing params');
+    sendJSONresponse(res, 404, {
+      "message": "lng, lat and maxDistance query parameters are all required"
     });
+    return;
+  }
+
+  Loc.geoNear(point, geoOptions, function(err, results, stats) {
+    var locations;
+    console.log('Geo Results', results);
+    console.log('Geo stats', stats);
+    if (err) {
+      console.log('geoNear error:', err);
+      sendJSONresponse(res, 404, err);
+    } else {
+      locations = buildLocationList(req, res, results, stats);
+      sendJSONresponse(res, 200, locations);
+    }
+  });
 };
 
 /* POST a new location */
