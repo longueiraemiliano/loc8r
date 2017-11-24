@@ -105,7 +105,7 @@ db.locations.update(
       $set: { "coords": [-58.5221554, -34.506228199999995 ] }
     }
 )
-//[lng, lat]
+
 db.locations.update(
     { "name" : "Starcrab" },
     {
@@ -119,7 +119,7 @@ db.locations.update(
       $set: { "coords": [-58.5236005, -34.5088557] }
     }
 )
-
+//[lng, lat]
 db.locations.remove(
    { "_id" : "5a18574cc4c19c2d48406769" }
 )
