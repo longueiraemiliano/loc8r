@@ -136,7 +136,8 @@ var renderReviewForm = function(req, res, body) {
         pageHeader: {
             title: 'Review ' + body.name
         },
-        error: req.query.err
+        error: req.query.err,
+        url: req.originalUrl
     });
 }
 
