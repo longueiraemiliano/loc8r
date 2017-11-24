@@ -19,7 +19,7 @@ var locationSchema = new mongoose.Schema({
     address: String,
     facilities: [String],
     rating: {type: Number, "default": 0, min: 0, max: 5},
-    coords: {type: [Number], index: '2dsphere', requeride: true},
+    coords: {type: [Number], index: '2dsphere', required: true},
     openingTimes: [openingTimeSchema],
     reviews: [reviewSchema]
  });
@@ -98,4 +98,30 @@ db.locations.update({
         }
     }
 })
+
+db.locations.update(
+    { "name" : "Starfish" },
+    {
+      $set: { "coords": [-58.5221554, -34.506228199999995 ] }
+    }
+)
+//[lng, lat]
+db.locations.update(
+    { "name" : "Starcrab" },
+    {
+      $set: { "coords": [-58.5221554, -34.506228199999995] }
+    }
+)
+
+db.locations.update(
+    { "name" : "El Bulo" },
+    {
+      $set: { "coords": [-58.5236005, -34.5088557] }
+    }
+)
+
+db.locations.remove(
+   { "_id" : "5a18574cc4c19c2d48406769" }
+)
+
 */
