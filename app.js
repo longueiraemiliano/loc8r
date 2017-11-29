@@ -31,7 +31,7 @@ appClientFiles.forEach(function(file) {
   var code = fs.readFileSync(file, "utf8");
   uglified += uglifyJs.minify(code).code;
 });
-console.log(uglified);
+
 fs.writeFile('public/javascripts/angular/loc8r.min.js', uglified, function (err) {
   if(err) {
     console.log(err);
