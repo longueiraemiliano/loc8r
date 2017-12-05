@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app='loc8rApp')
   head
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= title
@@ -12,7 +12,7 @@ html
     script(src='/javascripts/jquery-1.11.1.min.js')
     script(src='/bootstrap/js/bootstrap.min.js')
     script(src='/javascripts/validation.js') 
-  body(ng-app='loc8rApp')
+  body
    .navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
