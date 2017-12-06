@@ -19,7 +19,7 @@
                 controller: 'locationDetailCtrl',
                 controllerAs: 'vm'
             })
-            .when('/auth/register', {
+            .when('/register', {
                 templateUrl: '/auth/register/register.view.html',
                 controller: 'registerCtrl',
                 controllerAs: 'vm'

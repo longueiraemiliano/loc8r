@@ -32,7 +32,7 @@
         };
 
         var logout = function() {
-            $window.localStorage.removeItem('loc84-token');
+            $window.localStorage.removeItem('loc8r-token');
         }
 
         var isLoggedIn = function() {
