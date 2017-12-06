@@ -28,7 +28,7 @@
                 vm.doRegister();
             }
         };
-
+ 
         vm.doRegister = function() {
             vm.formError = "";
             authentication
