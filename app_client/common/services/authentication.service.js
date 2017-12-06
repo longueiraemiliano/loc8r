@@ -3,8 +3,8 @@
         .module('loc8rApp')
         .service('authentication', authentication);
 
-    authentication.$inject = ['$window', '$http'];
-    function authentication($window, $http) {
+    authentication.$inject = ['$window', '$q', '$http'];
+    function authentication($window, $q, $http) {
         var saveToken = function(token) {
             $window.localStorage['loc8r-token'] = token;
         };
@@ -14,21 +14,32 @@
         };
 
         var register = function(user) {
-            return $http.post('/api/register', user)
+            var deferred = $q.defer();
+            
+            $http.post('/api/register', user)
                     .then(function(result){
                         saveToken(result.data.token);
+                        deferred.resolve();
                     }, function(e){
                         console.log(e);
+                        deferred.reject();
                     });
+
+            return deferred.promise;        
         };
 
         var login = function(user) {
-            return $http.post('/api/login', user)
+            var deferred = $q.defer();
+             $http.post('/api/login', user)
                     .then(function(result){
                         saveToken(result.data.token);
+                        deferred.resolve();
                     }, function(e){
                         console.log(e);
-                    })
+                        deferred.reject();
+                    });
+            
+            return deferred.promise;
         };
 
         var logout = function() {

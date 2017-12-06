@@ -33,12 +33,11 @@
             vm.formError = "";
             authentication
                 .register(vm.credentials)
-                .error(function(err) {
-                    vm.formError = err;
-                })
                 .then(function() {
                     $location.search('page', null);
                     $location.path(vm.returnPage);
+                }, function(e){
+                    console.log("error");
                 });
         };
     }
