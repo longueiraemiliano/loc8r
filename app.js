@@ -48,7 +48,7 @@ appClientFiles.forEach(function(file) {
   uglified += uglifyJs.minify(code).code;
 });
 
-fs.writeFile('public/javascripts/angular/loc8r.min.js', notMinified, function (err) {
+fs.writeFile('public/javascripts/angular/loc8r.min.js', uglified, function (err) {
   if(err) {
     console.log(err);
   } else {
