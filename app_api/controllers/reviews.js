@@ -63,11 +63,16 @@ var doAddReview = function(req, res, location, author) {
   if (!location) {
     sendJSONresponse(res, 404, "locationid not found");
   } else {
-    location.reviews.push({
+    /*location.reviews.push({
       author: author,
       rating: req.body.rating,
       reviewText: req.body.reviewText
-    });
+    });*/
+    location.reviews = location.reviews.concat([{
+      author: author,
+      rating: req.body.rating,
+      reviewText: req.body.reviewText
+    }]);
     location.save(function(err, location) {
       var thisReview;
       if (err) {
